@@ -1,16 +1,28 @@
-import {StyleSheet, View, Text} from "react-native";
+import {Pressable, StyleSheet, Text} from "react-native";
+import {Link} from "expo-router";
 
 type ProductCardProps ={
+    id: number;
     title: string;
     price: number;
-}
+};
 
-export default function ProductCard({title, price}:ProductCardProps){
+export default function ProductCard({id, title, price}:ProductCardProps){
     return(
-        <View style={styles.card}>
+        <Link
+            href={{
+            pathname: "/product/[id]",
+                params:{
+                id: id.toString(),
+                },
+        }}
+            asChild
+            >
+        <Pressable style={styles.card}>
             <Text style={styles.title}>{title}</Text>
             <Text style={styles.price}>${price}</Text>
-        </View>
+        </Pressable>
+    </Link>
     );
 }
 

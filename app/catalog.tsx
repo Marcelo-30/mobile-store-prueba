@@ -30,6 +30,7 @@ export default function Catalog() {
                 keyExtractor={(product)=> product.id.toString()}
                 renderItem={({item})=>(
                     <ProductCard
+                        id={item.id}
                         title={item.title}
                         price={item.price}
                         />
