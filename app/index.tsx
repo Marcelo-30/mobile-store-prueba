@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 import ProductCard from "../components/ProductCard";
 
 const products=[
@@ -21,13 +21,16 @@ export default function Index() {
       <Text style={styles.title}>Tienda Mobil</Text>
       <Text style={styles.subtitle}>Encuentra tus productos favoritos</Text>
 
-        {products.map((product)=>(
-            <ProductCard
-            key={product.id}
-            title={product.title}
-            price={product.price}
-            />
-        ))}
+      <FlatList style={styles.list}
+                data={products}
+                keyExtractor={(product)=> product.id.toString()}
+                renderItem={({item})=>(
+                    <ProductCard
+                        title={item.title}
+                        price={item.price}
+                        />
+                )}
+                />
     </View>
   );
 }
@@ -45,5 +48,9 @@ const styles= StyleSheet.create ({
     subtitle:{
         fontSize: 16,
         marginTop: 8,
+    },
+    list: {
+        width: "100%",
+        marginTop: 24,
     },
 });
