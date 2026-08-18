@@ -1,60 +1,50 @@
-import { FlatList, StyleSheet, Text, View } from "react-native";
-import ProductCard from "../components/ProductCard";
-import { useProducts } from "../hooks/useProducts";
+import { Link } from "expo-router";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
-export default function Index() {
-    const productsQuery = useProducts();
-    if (productsQuery.isPending){
-        return (
-            <View style={styles.container}>
-                <Text>Cargando productos...</Text>
-            </View>
-        );
-    }
-    if(productsQuery.isError){
-        return(
-            <View style={styles.container}>
-                <Text>{productsQuery.error.message}</Text>
-            </View>
-        );
-    }
+export default function WelcomeScreen(){
+    return(
+        <View style={styles.container}>
+            <Text style={styles.title}>Tienda Móvil</Text>
 
-  return (
-    <View style={styles.container}>
+            <Text style={styles.subtitle}>Encuentra tus productos favoritos</Text>
 
-      <Text style={styles.title}>Tienda Mobil</Text>
-      <Text style={styles.subtitle}>Encuentra tus productos favoritos</Text>
+            <Link href="/catalog" asChild>
+                <Pressable style={styles.button}>
 
-      <FlatList style={styles.list}
-                data={productsQuery.data}
-                keyExtractor={(product)=> product.id.toString()}
-                renderItem={({item})=>(
-                    <ProductCard
-                        title={item.title}
-                        price={item.price}
-                        />
-                )}
-                />
-    </View>
-  );
+                <Text style={styles.buttonText}>Entrar al catálogo</Text>
+                </Pressable>
+            </Link>
+        </View>
+    );
 }
 
-const styles= StyleSheet.create ({
-    container:{
+const styles = StyleSheet.create({
+    container: {
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
+        justifyContent:"center",
+        alignItems:"center",
+        padding:24,
     },
     title:{
-        fontSize: 28,
-        fontWeight: "bold",
+        fontSize:32,
+        fontWeight:"bold",
     },
     subtitle:{
-        fontSize: 16,
-        marginTop: 8,
+        marginTop:8,
+        fontSize:16,
+        textAlign:"center",
+        color:"#666666",
     },
-    list: {
-        width: "100%",
+    button:{
         marginTop: 24,
+        paddingHorizontal: 24,
+        paddingVertical: 14,
+        borderRadius: 10,
+        backgroundColor: "#2563eb",
+    },
+    buttonText: {
+        fontSize: 17,
+        fontWeight: "600",
+        color: "#ffffff",
     },
 });

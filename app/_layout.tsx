@@ -6,7 +6,20 @@ const queryClient = new QueryClient();
 export default function RootLayout(){
   return (
       <QueryClientProvider client={queryClient}>
-        <Stack/>
+        <Stack>
+            <Stack.Screen
+                name="index"
+                options={{
+                    headerShown: false,
+                }}
+                />
+            <Stack.Screen
+                name="catalog"
+                options={{
+                    title:"Catálogo",
+                }}
+                />
+        </Stack>
       </QueryClientProvider>
   );
 }
