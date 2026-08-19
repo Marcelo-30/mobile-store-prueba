@@ -4,6 +4,7 @@ type CartState ={
     items: Record<number, number>;
     increment: (productId:number)=> void;
     decrement: (productId: number)=> void;
+    clearCart:()=> void;
 };
 
 export const useCartStore = create<CartState>()(
@@ -42,6 +43,11 @@ export const useCartStore = create<CartState>()(
                             [productId]: currentQuantity -1,
                         },
                     };
+                });
+            },
+            clearCart: function clearCart(){
+                set({
+                    items: {},
                 });
             },
         };

@@ -1,7 +1,8 @@
-import {FlatList, StyleSheet, Text, View } from "react-native";
+import {Pressable, FlatList, StyleSheet, Text, View } from "react-native";
 import {useCartStore} from "../store/cartStore";
 import {useProducts} from "../hooks/useProducts";
 import CartItem from "../components/CartItem";
+import { Link } from "expo-router";
 
 export default function CartScreen(){
     const productsQuery= useProducts();
@@ -59,9 +60,19 @@ export default function CartScreen(){
                       />
 
             <View style={styles.totalContainer}>
+
                 <Text style={styles.totalText}>
                     Total: ${total.toFixed(2)}
                 </Text>
+
+                <Link href="/checkout" asChild>
+                    <Pressable disabled={cartProducts.length === 0}>
+                        <View style={[styles.checkoutButton, cartProducts.length === 0 && styles.checkoutButtonDisabled]}>
+                            <Text style={styles.checkoutButtonText}>Continuar compra</Text>
+                        </View>
+                    </Pressable>
+                </Link>
+
             </View>
 
         </View>
@@ -91,5 +102,20 @@ const styles=StyleSheet.create({
         fontSize: 22,
         fontWeight: "bold",
         textAlign: "right",
+    },
+    checkoutButton: {
+        marginTop: 16,
+        borderRadius: 8,
+        backgroundColor: "#16a34a",
+        padding: 14,
+        alignItems: "center",
+    },
+    checkoutButtonDisabled: {
+        backgroundColor: "#9ca3af",
+    },
+    checkoutButtonText: {
+        color: "#ffffff",
+        fontSize: 16,
+        fontWeight: "bold",
     },
 });
