@@ -25,6 +25,12 @@ export default function RootLayout(){
                     title:"Detalles del producto",
                 }}
                 />
+            <Stack.Screen
+                name="cart"
+                options={{
+                    title: "Carrito",
+                }}
+            />
         </Stack>
       </QueryClientProvider>
   );

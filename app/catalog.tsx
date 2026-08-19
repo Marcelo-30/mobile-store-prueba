@@ -1,6 +1,7 @@
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { Pressable, FlatList, StyleSheet, Text, View } from "react-native";
 import ProductCard from "../components/ProductCard";
 import { useProducts } from "../hooks/useProducts";
+import {Link} from "expo-router";
 
 export default function Catalog() {
     const productsQuery = useProducts();
@@ -24,6 +25,12 @@ export default function Catalog() {
 
       <Text style={styles.title}>Tienda Mobil</Text>
       <Text style={styles.subtitle}>Encuentra tus productos favoritos</Text>
+
+        <Link href="/cart" asChild>
+            <Pressable style={styles.cartButton}>
+                <Text style={styles.cartButtonText}>Ver carrito</Text>
+            </Pressable>
+        </Link>
 
       <FlatList style={styles.list}
                 data={productsQuery.data}
@@ -57,5 +64,16 @@ const styles= StyleSheet.create ({
     list: {
         width: "100%",
         marginTop: 24,
+    },
+    cartButton: {
+        marginTop: 16,
+        borderRadius: 8,
+        backgroundColor: "#111827",
+        paddingHorizontal: 20,
+        paddingVertical: 12,
+    },
+    cartButtonText: {
+        color: "#ffffff",
+        fontWeight: "bold",
     },
 });
