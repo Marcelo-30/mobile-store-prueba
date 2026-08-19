@@ -22,7 +22,7 @@ export default function ProductCard({id, title, price}:ProductCardProps){
             >
         <Pressable>
             <Text style={styles.title}>{title}</Text>
-            <Text style={styles.price}>${price}</Text>
+            <Text style={styles.price}>${price.toFixed(2)}</Text>
         </Pressable>
     </Link>
 

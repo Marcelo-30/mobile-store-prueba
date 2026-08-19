@@ -34,7 +34,7 @@ export default function RootLayout(){
             <Stack.Screen
                 name="checkout"
                 options={{
-                    title: "Finalizar compra",
+                    title: "Checkout",
                 }}
             />
             <Stack.Screen

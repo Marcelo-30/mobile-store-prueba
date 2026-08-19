@@ -23,7 +23,7 @@ export default function Catalog() {
   return (
     <View style={styles.container}>
 
-      <Text style={styles.title}>Tienda Mobil</Text>
+      <Text style={styles.title}>Tienda Móvil</Text>
       <Text style={styles.subtitle}>Encuentra tus productos favoritos</Text>
 
         <Link href="/cart" asChild>

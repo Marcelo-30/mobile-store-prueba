@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View, TextInput} from "react-native";
+import {Pressable, StyleSheet, Text, TextInput, ScrollView, KeyboardAvoidingView, Platform} from "react-native";
 import {useState} from "react";
 import {router} from "expo-router";
 import {useCartStore} from "@/store/cartStore";
@@ -34,7 +34,8 @@ export default function CheckoutScreen (){
     }
 
     return (
-        <View style={styles.container}>
+        <KeyboardAvoidingView style={styles.keyboardContainer} behavior={Platform.OS === "ios" ? "padding" : "height"}>
+        <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
             <Text style={styles.title}>Finalizar compra</Text>
             <Text>Completa tus datos para confirmar el pedido.</Text>
 
@@ -78,13 +79,14 @@ export default function CheckoutScreen (){
             <Pressable style={styles.confirmButton} onPress={handleConfirmPurchase}>
                 <Text style={styles.confirmButtonText}>Confirmar compra</Text>
             </Pressable>
-        </View>
+        </ScrollView>
+        </KeyboardAvoidingView>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flexGrow: 1,
         padding: 24,
         backgroundColor: "#f7f7f7",
     },
@@ -127,5 +129,9 @@ const styles = StyleSheet.create({
         color: "#ffffff",
         fontSize: 16,
         fontWeight: "bold",
+    },
+    keyboardContainer: {
+        flex: 1,
+        backgroundColor: "#f7f7f7",
     },
 });
