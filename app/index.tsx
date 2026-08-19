@@ -1,50 +1,76 @@
 import { Link } from "expo-router";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View, ImageBackground} from "react-native";
 
-export default function WelcomeScreen(){
-    return(
-        <View style={styles.container}>
-            <Text style={styles.title}>Tienda Móvil</Text>
+const welcomeBackground = require(
+    "../assets/images/store-welcome-background.png",
+    );
 
-            <Text style={styles.subtitle}>Encuentra tus productos favoritos</Text>
+export default function WelcomeScreen() {
+    return (
+        <ImageBackground
+            source={welcomeBackground}
+            style={styles.background}
+            resizeMode="cover"
+        >
+            <View style={styles.overlay}>
+                <View style={styles.content}>
 
-            <Link href="/catalog" asChild>
-                <Pressable style={styles.button}>
+                    <Text style={styles.title}>
+                        MOBILE STORE
+                    </Text>
 
-                <Text style={styles.buttonText}>Entrar al catálogo</Text>
-                </Pressable>
-            </Link>
-        </View>
+                    <Link href="/catalog" asChild>
+                        <Pressable style={styles.button}>
+                            <Text style={styles.buttonText}>
+                                Explorar catálogo
+                            </Text>
+                        </Pressable>
+                    </Link>
+                </View>
+            </View>
+        </ImageBackground>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
+    background: {
         flex: 1,
-        justifyContent:"center",
-        alignItems:"center",
-        padding:24,
+        width: "100%",
+        height: "100%",
     },
-    title:{
-        fontSize:32,
-        fontWeight:"bold",
+    overlay: {
+        flex: 1,
+        justifyContent: "center",
+        backgroundColor: "rgba(3, 7, 18, 0.30)",
+        padding: 24,
     },
-    subtitle:{
-        marginTop:8,
-        fontSize:16,
-        textAlign:"center",
-        color:"#666666",
+    content: {
+        alignItems: "center",
+        paddingBottom: 120,
     },
-    button:{
-        marginTop: 24,
+    title: {
+        marginTop: 16,
+        color: "#ffffff",
+        fontSize: 42,
+        fontWeight: "bold",
+        lineHeight: 48,
+        textAlign: "center",
+        letterSpacing: 2,
+    },
+    button: {
+        width: "100%",
+        maxWidth: 300,
+        marginTop: 32,
+        borderRadius: 14,
+        backgroundColor: "#ffffff",
         paddingHorizontal: 24,
-        paddingVertical: 14,
-        borderRadius: 10,
-        backgroundColor: "#2563eb",
+        paddingVertical: 16,
+        alignItems: "center",
+        elevation: 4,
     },
     buttonText: {
+        color: "#1e3a8a",
         fontSize: 17,
-        fontWeight: "600",
-        color: "#ffffff",
+        fontWeight: "bold",
     },
 });
