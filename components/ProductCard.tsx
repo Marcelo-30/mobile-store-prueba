@@ -1,5 +1,6 @@
-import {Pressable, StyleSheet, Text} from "react-native";
+import {Pressable, StyleSheet, Text, View} from "react-native";
 import {Link} from "expo-router";
+import QuantityControl from "./QuantityControl";
 
 type ProductCardProps ={
     id: number;
@@ -9,6 +10,7 @@ type ProductCardProps ={
 
 export default function ProductCard({id, title, price}:ProductCardProps){
     return(
+        <View style={styles.card}>
         <Link
             href={{
             pathname: "/product/[id]",
@@ -18,11 +20,14 @@ export default function ProductCard({id, title, price}:ProductCardProps){
         }}
             asChild
             >
-        <Pressable style={styles.card}>
+        <Pressable>
             <Text style={styles.title}>{title}</Text>
             <Text style={styles.price}>${price}</Text>
         </Pressable>
     </Link>
+
+            <QuantityControl productId={id}/>
+        </View>
     );
 }
 

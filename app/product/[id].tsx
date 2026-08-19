@@ -1,6 +1,7 @@
 import { useLocalSearchParams} from "expo-router";
 import {Image, ScrollView, StyleSheet, Text, View} from "react-native";
 import {useProduct} from "../../hooks/useProduct";
+import QuantityControl from "../../components/QuantityControl";
 
 export default function ProductDetailScreen(){
     const { id } =useLocalSearchParams<{ id:string }>();
@@ -43,6 +44,8 @@ export default function ProductDetailScreen(){
                <Text style={styles.rating}>★ {product.rating.rate}</Text>
                <Text style={styles.ratingCount}>({product.rating.count} reseñas)</Text>
            </View>
+
+           <QuantityControl productId={product.id}/>
 
        </ScrollView>
     );
