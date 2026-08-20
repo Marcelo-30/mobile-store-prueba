@@ -64,6 +64,7 @@ hooks/        Hooks para las consultas de TanStack Query
 services/     Comunicación con la API
 store/        Estado global del carrito
 types/        Tipos de TypeScript
+utils/        Funciones puras de validación
 ```
 
 ## Rutas
@@ -171,7 +172,11 @@ Se eligió por su API pequeña y directa para compartir las cantidades del carri
 
 ### Componentes reutilizables
 
-`ProductCard`, `QuantityControl` y `CartItem` separan responsabilidades y evitan repetir la misma lógica visual en diferentes pantallas.
+`ProductCard`, `QuantityControl`, `CartItem` y `OrderSummary` separan responsabilidades y evitan repetir lógica visual en las pantallas.
+
+### Validación del checkout
+
+Las reglas de validación se separaron de la pantalla mediante una función pura. La función recibe los datos del formulario y devuelve un mensaje cuando encuentra un error o `null` cuando los datos son válidos. Esto permite mantener la pantalla enfocada en coordinar la interfaz y facilita probar las validaciones de manera independiente.
 
 ## Mejoras futuras
 
