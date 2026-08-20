@@ -38,7 +38,7 @@ export default function Catalog() {
       <View style={styles.container}>
     <View style={styles.header}>
         <View style={styles.headerText}>
-      <Text style={styles.title}>Tienda Móvil</Text>
+      <Text style={styles.title}>Mobile Store</Text>
 
       <Text style={styles.subtitle}>Encuentra tus productos favoritos</Text>
         </View>
