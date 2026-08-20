@@ -4,6 +4,7 @@ import {useProducts} from "../hooks/useProducts";
 import {router} from "expo-router";
 import {useCartStore} from "@/store/cartStore";
 import {validateCheckoutForm} from "@/utils/checkoutValidation";
+import OrderSummary from "@/components/OrderSummary";
 
 export default function CheckoutScreen (){
 
@@ -188,35 +189,11 @@ export default function CheckoutScreen (){
                 </View>
             </View>
 
-            <View style={styles.summaryContainer}>
-                <Text style={styles.sectionTitle}>Resumen del pedido</Text>
-
-                {orderProducts.map(function renderOrderProduct(product) {
-                    const quantity = items[product.id] ?? 0;
-                    const subtotal = product.price * quantity;
-
-                    return (
-                        <View key={product.id} style={styles.summaryRow}>
-                            <Text style={styles.summaryProduct} numberOfLines={2}>
-                                {product.title} × {quantity}
-                            </Text>
-
-                            <Text style={styles.summaryPrice}>
-                                ${subtotal.toFixed(2)}
-                            </Text>
-                        </View>
-                    );
-                })}
-
-                <View style={styles.summaryTotalRow}>
-                    <Text style={styles.summaryTotalLabel}>Total</Text>
-                    <Text style={styles.summaryTotal}>
-                        ${total.toFixed(2)}
-                    </Text>
-                </View>
-            </View>
-
-
+            <OrderSummary
+                orderProducts={orderProducts}
+                items={items}
+                total={total}
+            />
 
             {errorMessage !== "" && (
                 <Text style={styles.errorText}>{errorMessage}</Text>
@@ -288,51 +265,10 @@ const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: "#f7f7f7",
     },
-    summaryContainer: {
-        marginTop: 20,
-        borderWidth: 1,
-        borderColor: "#e5e7eb",
-        borderRadius: 16,
-        backgroundColor: "#ffffff",
-        padding: 16,
-    },
     sectionTitle: {
         marginBottom: 14,
         fontSize: 20,
         fontWeight: "bold",
-    },
-    summaryRow: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        gap: 12,
-        marginBottom: 10,
-    },
-    summaryProduct: {
-        flex: 1,
-        fontSize: 14,
-        color: "#374151",
-    },
-    summaryPrice: {
-        fontSize: 14,
-        fontWeight: "600",
-    },
-    summaryTotalRow: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        marginTop: 4,
-        paddingTop: 12,
-        borderTopWidth: 1,
-        borderTopColor: "#e5e7eb",
-    },
-    summaryTotalLabel: {
-        fontSize: 18,
-        fontWeight: "bold",
-    },
-    summaryTotal: {
-        fontSize: 18,
-        fontWeight: "bold",
-        color: "#2563eb",
     },
     paymentContainer: {
         marginTop: 20,
