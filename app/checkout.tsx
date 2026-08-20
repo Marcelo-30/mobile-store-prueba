@@ -3,6 +3,7 @@ import {useState} from "react";
 import {useProducts} from "../hooks/useProducts";
 import {router} from "expo-router";
 import {useCartStore} from "@/store/cartStore";
+import {validateCheckoutForm} from "@/utils/checkoutValidation";
 
 export default function CheckoutScreen (){
 
@@ -71,65 +72,20 @@ export default function CheckoutScreen (){
     }
 
     function handleConfirmPurchase(){
-        const hasEmptyFields =
-            name.trim() === "" ||
-            email.trim() === "" ||
-            address.trim() === "" ||
-            cardNumber.trim() === "" ||
-            expirationDate.trim() === "" ||
-            cvv.trim() === "";
 
+        const validationError = validateCheckoutForm({
+            name,
+            email,
+            address,
+            cardNumber,
+            expirationDate,
+            cvv,
+        });
 
-        if (hasEmptyFields){
-            setErrorMessage("Completa todos los campos.")
+        if (validationError !== null) {
+            setErrorMessage(validationError);
             return;
         }
-
-        if (!email.includes("@")){
-            setErrorMessage("Escribe un correo válido.")
-            return;
-        }
-
-        if (!/^\d{16}$/.test(cardNumber)) {
-            setErrorMessage("El número de tarjeta debe tener 16 dígitos.");
-            return;
-        }
-
-        //Validar Fecha de vencimieto
-
-        if (!/^\d{2}\/\d{2}$/.test(expirationDate)) {
-            setErrorMessage("Escribe la fecha de vencimiento en formato MM/AA.");
-            return;
-        }
-
-        const expirationMonth = Number(expirationDate.slice(0, 2));
-        const expirationYear = Number("20" + expirationDate.slice(3, 5));
-
-        const currentDate = new Date();
-        const currentMonth = currentDate.getMonth() + 1;
-        const currentYear = currentDate.getFullYear();
-
-        const isExpired =
-            expirationYear < currentYear ||
-            (expirationYear === currentYear &&
-                expirationMonth < currentMonth);
-
-        if (
-            expirationMonth < 1 ||
-            expirationMonth > 12 ||
-            isExpired
-        ) {
-            setErrorMessage("La fecha de vencimiento no es válida.");
-            return;
-        }
-
-        // Validar CVV
-
-        if (!/^\d{3}$/.test(cvv)) {
-            setErrorMessage("El CVV debe tener 3 dígitos.");
-            return;
-        }
-
 
         const orderNumber =
             "MS-" + Date.now().toString().slice(-8);
