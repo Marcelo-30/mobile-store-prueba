@@ -5,16 +5,45 @@ Aplicación móvil de comercio electrónico desarrollada con React Native y Expo
 ## Funcionalidades
 
 - Pantalla de bienvenida.
-- Catálogo obtenido desde una API.
+- Catálogo en cuadrícula de dos columnas.
+- Productos obtenidos desde Fake Store API.
 - Estados de carga y error.
 - Detalle dinámico por producto.
-- Carrito global sincronizado entre pantallas.
+- Carrito global con contador de unidades.
 - Incremento y decremento de cantidades.
+- Navegación desde el carrito al detalle del producto.
 - Subtotal por producto y total general.
-- Formulario de checkout con validaciones.
-- Confirmación de compra y limpieza del carrito.
+- Resumen del pedido en checkout.
+- Formulario de entrega y pago simulado con validaciones.
+- Confirmación con total pagado y número de compra.
+- Limpieza automática del carrito al confirmar.
 
-> El checkout es una simulación. No se procesa ningún pago ni se registra una orden real en la API.
+> El checkout es una simulación. Los datos bancarios solamente existen temporalmente en el estado local del formulario: no se almacenan, no se envían a la API y no se procesa ningún pago real.
+
+## Capturas de la aplicación
+
+<table>
+  <tr>
+    <th>Bienvenida</th>
+    <th>Catálogo</th>
+    <th>Detalle del producto</th>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/welcome.jpg" width="240" alt="Pantalla de bienvenida"></td>
+    <td><img src="docs/screenshots/catalog.jpg" width="240" alt="Catálogo de productos"></td>
+    <td><img src="docs/screenshots/product-detail.jpg" width="240" alt="Detalle del producto"></td>
+  </tr>
+  <tr>
+    <th>Carrito</th>
+    <th>Checkout</th>
+    <th>Confirmación</th>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/cart.jpg" width="240" alt="Carrito de compras"></td>
+    <td><img src="docs/screenshots/checkout.jpg" width="240" alt="Formulario de checkout"></td>
+    <td><img src="docs/screenshots/success.jpg" width="240" alt="Confirmación de compra"></td>
+  </tr>
+</table>
 
 ## Tecnologías
 
@@ -48,13 +77,23 @@ types/        Tipos de TypeScript
 | `/checkout` | Formulario de compra |
 | `/success` | Confirmación |
 
+## Flujo principal
+
+1. El usuario entra al catálogo.
+2. Agrega productos desde el catálogo o el detalle.
+3. Revisa cantidades, subtotales y total en el carrito.
+4. Completa sus datos de entrega y pago simulado.
+5. Checkout valida los campos, genera un número de compra local y vacía el carrito.
+6. La pantalla de confirmación muestra el número de compra y el total pagado.
+
 ## Manejo del estado
 
 El proyecto separa el estado según su origen:
 
 - TanStack Query administra los productos recibidos desde la API, junto con sus estados de carga, error y caché.
 - Zustand administra el estado local y global del carrito.
-- `useState` administra los campos y mensajes del formulario de checkout.
+- `useState` administra los datos de entrega, los campos de pago simulado y los mensajes de validación.
+- Expo Router transporta el total y el número de compra desde checkout hasta la pantalla de confirmación.
 
 El carrito almacena solamente la relación entre el identificador de un producto y su cantidad:
 
