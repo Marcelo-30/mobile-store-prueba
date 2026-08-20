@@ -1,7 +1,13 @@
-import {Link} from "expo-router";
+import {Link, useLocalSearchParams} from "expo-router";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function SuccessScreen(){
+
+    const {total, orderNumber} = useLocalSearchParams<{
+        total?: string;
+        orderNumber?: string;
+    }>();
+
     return(
         <View style={styles.container}>
             <Text style={styles.icon}>✓</Text>
@@ -9,6 +15,22 @@ export default function SuccessScreen(){
             <Text style={styles.title}>¡Compra confirmada!</Text>
 
             <Text style={styles.message}>Tu pedido fue registrado correctamente.</Text>
+
+            <View style={styles.detailsCard}>
+                <Text style={styles.detailLabel}>Número de compra</Text>
+
+                <Text style={styles.orderNumber}>
+                    {orderNumber ?? "No disponible"}
+                </Text>
+
+                <View style={styles.divider}/>
+
+                <Text style={styles.detailLabel}>Total pagado</Text>
+
+                <Text style={styles.paidTotal}>
+                    ${total ?? "0.00"}
+                </Text>
+            </View>
 
             <Link href="/catalog" dismissTo asChild>
                 <Pressable style={styles.button}>
@@ -53,5 +75,38 @@ const styles = StyleSheet.create({
     buttonText: {
         color: "#ffffff",
         fontWeight: "bold",
+    },
+    detailsCard: {
+        width: "100%",
+        maxWidth: 360,
+        marginTop: 24,
+        borderWidth: 1,
+        borderColor: "#e5e7eb",
+        borderRadius: 16,
+        backgroundColor: "#ffffff",
+        padding: 20,
+    },
+    detailLabel: {
+        color: "#6b7280",
+        fontSize: 14,
+        textAlign: "center",
+    },
+    orderNumber: {
+        marginTop: 6,
+        fontSize: 20,
+        fontWeight: "bold",
+        textAlign: "center",
+    },
+    divider: {
+        height: 1,
+        marginVertical: 16,
+        backgroundColor: "#e5e7eb",
+    },
+    paidTotal: {
+        marginTop: 6,
+        color: "#16a34a",
+        fontSize: 28,
+        fontWeight: "bold",
+        textAlign: "center",
     },
 });

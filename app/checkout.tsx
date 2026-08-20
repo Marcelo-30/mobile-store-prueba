@@ -131,9 +131,19 @@ export default function CheckoutScreen (){
         }
 
 
+        const orderNumber =
+            "MS-" + Date.now().toString().slice(-8);
+
         setErrorMessage("");
         clearCart();
-        router.replace("/success");
+
+        router.replace({
+            pathname: "/success",
+            params: {
+                total: total.toFixed(2),
+                orderNumber: orderNumber,
+            },
+        });
     }
 
     return (
