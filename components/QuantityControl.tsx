@@ -29,18 +29,21 @@ export default function QuantityControl({productId}: QuantityControlProps){
     return(
         <View style={styles.container}>
 
-            <Pressable style={[styles.button, quantity === 0 && styles.disabledButton]} onPress={handleDecrement} disabled={quantity===0}>
+            <Pressable style={[styles.button, quantity === 0 && styles.disabledButton]} onPress={handleDecrement} disabled={quantity===0}
+            accessibilityRole="button"
+            accessibilityLabel="Disminuir cantidad"
+            >
             <Text style={styles.buttonText}>-</Text>
         </Pressable>
 
-            <Text>Cantidad: {quantity}</Text>
+            <Text style={styles.quantity}>{quantity}</Text>
 
-            <Pressable style={styles.button} onPress={handleIncrement}>
+            <Pressable style={styles.button} onPress={handleIncrement}
+            accessibilityRole="button"
+            accessibilityLabel="Aumentar cantidad"
+            >
                 <Text style={styles.buttonText}>+</Text>
             </Pressable>
-
-
-
         </View>
     );
 }
@@ -49,19 +52,28 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
         alignItems: "center",
-        gap: 12,
-        marginTop: 16,
+        justifyContent:"space-between",
+        marginTop: 12,
     },
     button: {
+        width: 36,
+        height: 36,
+        borderRadius: 10,
         backgroundColor: "#2563eb",
-        borderRadius: 8,
-        paddingHorizontal: 16,
-        paddingVertical: 8,
+        justifyContent: "center",
+        alignItems: "center",
     },
     buttonText: {
         color: "#ffffff",
-        fontSize: 18,
+        fontSize: 20,
         fontWeight: "bold",
+    },
+    quantity: {
+        minWidth: 28,
+        color: "#111827",
+        fontSize: 16,
+        fontWeight: "bold",
+        textAlign: "center",
     },
     disabledButton: {
         backgroundColor: "#9ca3af",
